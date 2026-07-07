@@ -1,0 +1,9 @@
+{
+  "name": "design-artifact-loop",
+  "version": "1.0.0",
+  "description": "Render-grounded, non-slop UI design artifacts: commit a concrete design system before markup, then iterate against a deterministic linter + an independent vision critic, bounded by a round-capped state machine.",
+  "author": {
+    "name": "Dave Kim",
+    "url": "https://github.com/davekim917"
+  }
+}
