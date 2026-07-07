@@ -56,13 +56,17 @@ review state live under `.design-artifact-loop/<id>/` in your working directory
 
 ## Install (Codex CLI)
 
-Codex has no plugin system; it discovers skills from `~/.agents/skills/` and MCP
-servers from `~/.codex/config.toml`. One script wires up both:
+The repo is also a native Codex plugin (`.codex-plugin/plugin.json` declares the
+skill + MCP server; `.agents/plugins/marketplace.json` makes the repo its own
+marketplace):
 
 ```bash
-git clone https://github.com/davekim917/design-artifact-loop
-./design-artifact-loop/install-codex.sh
+codex plugin marketplace add davekim917/design-artifact-loop
+codex plugin add design-artifact-loop@design-artifact-loop
 ```
+
+On Codex versions without the plugin system, `./install-codex.sh` wires the same
+two pieces by hand (skill mirror into `~/.agents/skills/` + `codex mcp add`).
 
 The loop root resolves against the MCP server's working directory (Codex's launch
 dir) — same `DESIGN_ARTIFACT_LOOP_ROOT` override applies.
