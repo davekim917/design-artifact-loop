@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "design-artifact-loop",
+  "description": "Render-grounded, non-slop UI design artifacts for coding agents.",
+  "owner": {
+    "name": "Dave Kim",
+    "url": "https://github.com/davekim917"
+  },
+  "plugins": [
+    {
+      "name": "design-artifact-loop",
+      "description": "Commit a design system before markup, then iterate against a deterministic linter + an independent vision critic, bounded by a round-capped state machine.",
+      "source": "./",
+      "category": "design"
+    }
+  ]
+}
