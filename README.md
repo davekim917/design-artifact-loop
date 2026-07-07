@@ -54,6 +54,19 @@ The skill triggers on "design a …", "mock up a …", "make me a UI". Artifacts
 review state live under `.design-artifact-loop/<id>/` in your working directory
 (override with `DESIGN_ARTIFACT_LOOP_ROOT`).
 
+## Install (Codex CLI)
+
+Codex has no plugin system; it discovers skills from `~/.agents/skills/` and MCP
+servers from `~/.codex/config.toml`. One script wires up both:
+
+```bash
+git clone https://github.com/davekim917/design-artifact-loop
+./design-artifact-loop/install-codex.sh
+```
+
+The loop root resolves against the MCP server's working directory (Codex's launch
+dir) — same `DESIGN_ARTIFACT_LOOP_ROOT` override applies.
+
 ## Development
 
 ```bash
