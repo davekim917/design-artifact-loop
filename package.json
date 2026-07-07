@@ -1,13 +1,14 @@
 {
   "name": "design-artifact-loop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Render-grounded, non-slop UI design artifacts: commit a design system before markup, then iterate against a deterministic linter and an independent vision critic.",
   "private": true,
   "type": "module",
   "license": "MIT",
   "scripts": {
     "test": "bun test server/",
-    "typecheck": "bunx tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit",
+    "build": "bun build server/index.ts --target=node --outfile=server/dist/index.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0"

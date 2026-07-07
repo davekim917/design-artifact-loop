@@ -29,7 +29,9 @@ default indigo, Inter everywhere. This plugin fixes that with **author-then-conf
 
 ## Requirements
 
-- [Bun](https://bun.sh) — runs the MCP server and tests.
+- Node.js ≥ 18 — runs the MCP server (a committed self-contained bundle,
+  `server/dist/index.mjs`; no install step). [Bun](https://bun.sh) is only needed for
+  development (tests + rebuilding the bundle).
 - Chromium on `PATH` (or set `CHROMIUM_BIN`) — used for headless rendering. Egress
   during render is blocked at the browser layer via `--host-resolver-rules` (only the
   declared font CDN resolves), so the artifact under review cannot phone home even if
@@ -44,9 +46,8 @@ default indigo, Inter everywhere. This plugin fixes that with **author-then-conf
 ## Install (Claude Code)
 
 ```bash
-git clone https://github.com/davekim917/design-artifact-loop ~/plugins/design-artifact-loop
-cd ~/plugins/design-artifact-loop && bun install
-claude plugin install ~/plugins/design-artifact-loop
+claude plugin marketplace add davekim917/design-artifact-loop
+claude plugin install design-artifact-loop@design-artifact-loop
 ```
 
 The skill triggers on "design a …", "mock up a …", "make me a UI". Artifacts and
@@ -59,6 +60,7 @@ review state live under `.design-artifact-loop/<id>/` in your working directory
 bun install
 bun test server/      # linter, state machine, render classification, corpus integrity
 bunx tsc --noEmit     # typecheck
+bun run build         # rebuild server/dist/index.mjs after editing server/*.ts (commit it)
 ```
 
 ## Design notes

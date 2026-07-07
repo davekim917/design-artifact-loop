@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "design-review": {
-      "command": "bun",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/server/index.ts"]
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/server/dist/index.mjs"]
     }
   }
 }
