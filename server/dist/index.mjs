@@ -15242,10 +15242,22 @@ var init_design_review = __esm(() => {
 });
 
 // server/index.ts
+import fs4 from "fs";
 import os from "os";
 import path4 from "path";
-var PLUGIN_ROOT = path4.resolve(import.meta.dirname, "..");
-if (!process.env.DESIGN_ARTIFACT_LOOP_ROOT && path4.resolve(process.cwd()) === PLUGIN_ROOT) {
+function findPluginRoot(from) {
+  let d = from;
+  for (;; ) {
+    if (fs4.existsSync(path4.join(d, ".claude-plugin")) || fs4.existsSync(path4.join(d, ".codex-plugin")))
+      return d;
+    const up = path4.dirname(d);
+    if (up === d)
+      return null;
+    d = up;
+  }
+}
+var PLUGIN_ROOT = findPluginRoot(import.meta.dirname);
+if (!process.env.DESIGN_ARTIFACT_LOOP_ROOT && PLUGIN_ROOT && path4.resolve(process.cwd()) === PLUGIN_ROOT) {
   process.env.DESIGN_ARTIFACT_LOOP_ROOT = path4.join(os.homedir(), "design-artifacts");
 }
 var { Server: Server2 } = await Promise.resolve().then(() => (init_server2(), exports_server));

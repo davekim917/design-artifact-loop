@@ -13,11 +13,26 @@
  * cannot read top-level dot-dirs under $HOME). Claude spawns with cwd = the
  * user's project dir, which keeps the engine's project-local default.
  */
+import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
-const PLUGIN_ROOT = path.resolve(import.meta.dirname, '..');
-if (!process.env.DESIGN_ARTIFACT_LOOP_ROOT && path.resolve(process.cwd()) === PLUGIN_ROOT) {
+// Walk up from this file to the directory carrying a plugin manifest. Works from
+// both the TS source (<root>/server/) and the committed bundle (<root>/server/dist/),
+// and never false-positives when cwd is merely an ancestor (e.g. $HOME) of the
+// plugin rather than the plugin root itself.
+function findPluginRoot(from: string): string | null {
+  let d = from;
+  for (;;) {
+    if (fs.existsSync(path.join(d, '.claude-plugin')) || fs.existsSync(path.join(d, '.codex-plugin'))) return d;
+    const up = path.dirname(d);
+    if (up === d) return null;
+    d = up;
+  }
+}
+
+const PLUGIN_ROOT = findPluginRoot(import.meta.dirname);
+if (!process.env.DESIGN_ARTIFACT_LOOP_ROOT && PLUGIN_ROOT && path.resolve(process.cwd()) === PLUGIN_ROOT) {
   process.env.DESIGN_ARTIFACT_LOOP_ROOT = path.join(os.homedir(), 'design-artifacts');
 }
 
