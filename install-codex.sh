@@ -18,6 +18,9 @@ DEST="$SKILLS_DIR/design-artifact-loop"
 
 command -v codex >/dev/null || { echo "error: codex CLI not found on PATH" >&2; exit 1; }
 command -v node  >/dev/null || { echo "error: node not found on PATH (runs the MCP server)" >&2; exit 1; }
+if [ -z "${CHROMIUM_BIN:-}" ] && ! command -v chromium >/dev/null; then
+  echo "warning: no 'chromium' on PATH and CHROMIUM_BIN unset — design_review renders will fail until one is installed" >&2
+fi
 
 # 1. Skill mirror
 if [ -f "$DEST/.nanoclaw-managed" ]; then
@@ -25,8 +28,11 @@ if [ -f "$DEST/.nanoclaw-managed" ]; then
 else
   mkdir -p "$DEST"
   cp "$SKILL_SRC/SKILL.md" "$DEST/SKILL.md"
-  ln -sfn "$SKILL_SRC/design-systems" "$DEST/design-systems"
-  ln -sfn "$SKILL_SRC/fixtures" "$DEST/fixtures"
+  # rm first: `ln -sfn` into a pre-existing REAL directory would nest the
+  # symlink INSIDE it instead of replacing it.
+  rm -rf "$DEST/design-systems" "$DEST/fixtures"
+  ln -s "$SKILL_SRC/design-systems" "$DEST/design-systems"
+  ln -s "$SKILL_SRC/fixtures" "$DEST/fixtures"
   echo "skill: mirrored to $DEST"
 fi
 

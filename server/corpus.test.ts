@@ -9,8 +9,11 @@ import { describe, it, expect } from 'bun:test';
 import fs from 'fs';
 import path from 'path';
 
-// server → plugin root → skills/...
-const CORPUS = path.resolve(import.meta.dir, '../skills/design-artifact-loop/design-systems');
+// Resolve the corpus wherever this file lives (plugin repo or vendored tree).
+const CORPUS = [
+  path.resolve(import.meta.dir, '../skills/design-artifact-loop/design-systems'), // plugin-repo layout
+  path.resolve(import.meta.dir, '../../../../skills/design-artifact-loop/design-systems'), // vendored NanoClaw layout
+].find((p) => fs.existsSync(p))!;
 
 function systemDirs(): string[] {
   return fs.readdirSync(CORPUS, { withFileTypes: true })
