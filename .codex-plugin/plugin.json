@@ -1,6 +1,6 @@
 {
   "name": "design-artifact-loop",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Render-grounded, non-slop UI design artifacts: commit a concrete design system before markup, then iterate against a deterministic linter + an independent vision critic, bounded by a round-capped state machine.",
   "author": {
     "name": "Dave Kim",
@@ -9,12 +9,20 @@
   "homepage": "https://github.com/davekim917/design-artifact-loop",
   "repository": "https://github.com/davekim917/design-artifact-loop",
   "license": "MIT",
-  "keywords": ["design", "ui", "html", "design-system", "review"],
+  "keywords": [
+    "design",
+    "ui",
+    "html",
+    "design-system",
+    "review"
+  ],
   "skills": "./skills/",
   "mcpServers": {
     "design-review": {
       "command": "node",
-      "args": ["./server/dist/index.mjs"]
+      "args": [
+        "./server/dist/index.mjs"
+      ]
     }
   },
   "interface": {
@@ -23,6 +31,9 @@
     "longDescription": "Commit a concrete design system before markup, then render-grounded-iterate against a deterministic linter and an independent vision critic.",
     "developerName": "Dave Kim",
     "category": "Design",
-    "capabilities": ["Skills", "MCP server"]
+    "capabilities": [
+      "Skills",
+      "MCP server"
+    ]
   }
 }
