@@ -5,7 +5,7 @@
 # and MCP servers from ~/.codex/config.toml. This wires up both:
 #   1. mirrors the skill (Codex needs a REAL directory with a REAL SKILL.md;
 #      symlinked subdirectories are fine)
-#   2. registers the design-review MCP server via `codex mcp add`
+#   2. registers the MCP server via `codex mcp add`
 #
 # Runtime requirements are the same as for Claude Code: node >= 18 and chromium
 # on PATH (or CHROMIUM_BIN). Idempotent — safe to re-run after `git pull`.
@@ -31,5 +31,5 @@ else
 fi
 
 # 2. MCP server (self-contained bundle — no npm install needed)
-codex mcp add design-review -- node "$ROOT/server/dist/index.mjs"
-echo "mcp: design-review registered — verify with: codex mcp list"
+codex mcp add design-artifact-loop -- node "$ROOT/server/dist/index.mjs"
+echo "mcp: design-artifact-loop registered — verify with: codex mcp list"

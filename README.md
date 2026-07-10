@@ -24,7 +24,7 @@ default indigo, Inter everywhere. This plugin fixes that with **author-then-conf
 - `skills/design-artifact-loop/` — the skill: the loop protocol (`SKILL.md`), ~18
   vendored design systems (`DESIGN.md` + `tokens.css` each; Apache-2.0, see
   `design-systems/ATTRIBUTION.md`), and good/slop fixture pairs.
-- `server/` — the `design-review` MCP server (stdio): linter, renderer, and the
+- `server/` — the `design_review` MCP tool's server (stdio): linter, renderer, and the
   round/cap state machine. 100+ tests.
 
 ## Requirements
