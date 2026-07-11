@@ -73,8 +73,6 @@ bunx tsc --noEmit     # typecheck
 bun run build         # rebuild server/dist/index.mjs after editing server/*.ts (commit it)
 ```
 
-Extracted from [NanoClaw](https://github.com/qwibitai/nanoclaw), where it ships as a container skill for Claude/Codex/OpenCode agents.
-
 ## License
 
 MIT (see `LICENSE`). The vendored design-system corpus is Apache-2.0: see `skills/design-artifact-loop/design-systems/LICENSE` and `ATTRIBUTION.md`.
