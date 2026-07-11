@@ -1,6 +1,6 @@
 {
   "name": "design-artifact-loop",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Render-grounded, non-slop UI design artifacts: commit a design system before markup, then iterate against a deterministic linter and an independent vision critic.",
   "private": true,
   "type": "module",

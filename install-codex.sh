@@ -23,18 +23,14 @@ if [ -z "${CHROMIUM_BIN:-}" ] && ! command -v chromium >/dev/null; then
 fi
 
 # 1. Skill mirror
-if [ -f "$DEST/.nanoclaw-managed" ]; then
-  echo "skill: $DEST is managed by a NanoClaw install — leaving it alone"
-else
-  mkdir -p "$DEST"
-  cp "$SKILL_SRC/SKILL.md" "$DEST/SKILL.md"
-  # rm first: `ln -sfn` into a pre-existing REAL directory would nest the
-  # symlink INSIDE it instead of replacing it.
-  rm -rf "$DEST/design-systems" "$DEST/fixtures"
-  ln -s "$SKILL_SRC/design-systems" "$DEST/design-systems"
-  ln -s "$SKILL_SRC/fixtures" "$DEST/fixtures"
-  echo "skill: mirrored to $DEST"
-fi
+mkdir -p "$DEST"
+cp "$SKILL_SRC/SKILL.md" "$DEST/SKILL.md"
+# rm first: `ln -sfn` into a pre-existing REAL directory would nest the
+# symlink INSIDE it instead of replacing it.
+rm -rf "$DEST/design-systems" "$DEST/fixtures"
+ln -s "$SKILL_SRC/design-systems" "$DEST/design-systems"
+ln -s "$SKILL_SRC/fixtures" "$DEST/fixtures"
+echo "skill: mirrored to $DEST"
 
 # 2. MCP server (self-contained bundle — no npm install needed)
 codex mcp add design-artifact-loop -- node "$ROOT/server/dist/index.mjs"
