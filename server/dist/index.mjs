@@ -14828,6 +14828,13 @@ function classifyRender(s) {
   }
   return out;
 }
+function chromiumEnv(outDir) {
+  const xdg = path.join(outDir, ".chromium-xdg");
+  try {
+    fs.mkdirSync(xdg, { recursive: true });
+  } catch {}
+  return { ...process.env, XDG_CONFIG_HOME: xdg, XDG_CACHE_HOME: xdg };
+}
 function measureDom(html, outDir, vpName, width, height) {
   const inject = `<script>window.addEventListener('load',function(){` + `var d=document.documentElement,b=document.body;` + `document.title='${MEASURE_SENTINEL}:'+d.scrollWidth+','+d.scrollHeight+','+` + `((b&&b.innerText||'').trim().length)+','+d.clientWidth;});</script>`;
   const stripped = html.replace(/<meta\b[^>]*>/gi, (tag) => /http-equiv\s*=\s*["']?content-security-policy\b/i.test(tag) ? "" : tag);
@@ -14835,7 +14842,7 @@ function measureDom(html, outDir, vpName, width, height) {
   const tmp = path.join(outDir, `.measure-${vpName}-${process.pid}-${++measureSeq}.html`);
   try {
     fs.writeFileSync(tmp, measured);
-    const dom = execFileSync(CHROMIUM, [...CHROMIUM_BASE_ARGS, `--window-size=${width},${height}`, "--dump-dom", `file://${tmp}`], { timeout: 15000, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"] });
+    const dom = execFileSync(CHROMIUM, [...CHROMIUM_BASE_ARGS, `--window-size=${width},${height}`, "--dump-dom", `file://${tmp}`], { timeout: 15000, encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], env: chromiumEnv(outDir) });
     const m = dom.match(new RegExp(`${MEASURE_SENTINEL}:(\\d+),(\\d+),(\\d+),(\\d+)`));
     if (!m)
       return null;
@@ -14866,7 +14873,7 @@ function renderViewports(htmlPath, outDir, token = "") {
         `--window-size=${vp.width},${vp.height}`,
         `--screenshot=${pngPath}`,
         `file://${htmlPath}`
-      ], { stdio: "ignore", timeout: 30000 });
+      ], { stdio: "ignore", timeout: 30000, env: chromiumEnv(outDir) });
     } catch {
       exitOk = false;
     }
