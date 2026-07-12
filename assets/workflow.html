@@ -15,6 +15,7 @@
   --accent: #e4542f;
   --accent-pale: #ffc6b6;
   --reverse: #fbfbf8;
+  --dark-quiet: #a9a9a1;
   --ok: #a6d779;
   --font-display: "Nimbus Sans Narrow", "Arial Narrow", Arial, sans-serif;
   --font-body: "Nimbus Sans", Arial, sans-serif;
@@ -71,7 +72,7 @@ h1 {
 .return { grid-column: 4; }
 .stage-head { align-items: baseline; display: flex; gap: var(--space-md); }
 .stage-head b { color: var(--accent); font: 700 34px/.8 var(--font-display); }
-.stage h2 { font: 700 22px/1 var(--font-display); margin: 0; }
+.stage-head h2 { font: 700 22px/1 var(--font-display); margin: 0; }
 .stage p { color: var(--ink-2); font-size: 13px; line-height: 1.45; margin: var(--space-lg) 0 0; }
 .system-name { font: 700 27px/1 var(--font-display); margin-top: var(--space-2xl); }
 .system-name span { color: var(--accent); }
@@ -103,6 +104,8 @@ h1 {
   padding: var(--space-xl);
 }
 .review .stage-head { grid-column: 1 / -1; }
+.review > div:not(.stage-head) { align-self: center; }
+.review .hash { color: var(--dark-quiet); }
 .review .stage-head b { color: var(--accent-pale); }
 .viewports { display: grid; gap: var(--space-sm); grid-template-columns: 1fr 52px; }
 .viewport {
