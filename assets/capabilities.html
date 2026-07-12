@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Artifact Loop capabilities</title>
+<style>
+:root {
+  --ground: #f4f4f1;
+  --white: #ffffff;
+  --ink: #11110f;
+  --ink-2: #44443f;
+  --quiet: #74746d;
+  --rule: #c8c8c0;
+  --rule-soft: #e4e4de;
+  --accent: #e4542f;
+  --accent-pale: #ffd2c5;
+  --blue: #2457e6;
+  --blue-pale: #dbe4ff;
+  --yellow: #e9ef79;
+  --green: #80c6a5;
+  --dark-panel: #181a1d;
+  --dark-panel-2: #25282d;
+  --dark-text: #f6f6f2;
+  --dark-quiet: #a9abb1;
+  --font-display: "Nimbus Sans Narrow", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Nimbus Sans", Arial, sans-serif;
+  --font-code: "Nimbus Mono PS", "Courier New", monospace;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; width: 100%; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  height: 900px;
+  overflow: hidden;
+  padding: var(--space-2xl) var(--space-3xl);
+}
+.header {
+  align-items: end;
+  display: grid;
+  gap: var(--space-3xl);
+  grid-template-columns: 220px minmax(0, 1fr) 390px;
+  min-height: 96px;
+}
+.wordmark { color: var(--accent); font-size: 15px; font-weight: 700; padding-bottom: var(--space-sm); }
+h1 {
+  font: 700 52px/.92 var(--font-display);
+  letter-spacing: -.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.header p { color: var(--ink-2); font-size: 15px; line-height: 1.5; margin: 0; max-width: 48ch; }
+.proof {
+  border-top: 3px solid var(--ink);
+  height: 724px;
+  margin-top: var(--space-xl);
+  position: relative;
+}
+.desktop-caption,
+.mobile-caption {
+  color: var(--quiet);
+  font: 12px/1 var(--font-code);
+  position: absolute;
+}
+.desktop-caption { left: 0; top: var(--space-lg); }
+.mobile-caption { left: 900px; top: var(--space-lg); }
+
+/* One coherent brief: Fieldnote research operations on desktop and mobile. */
+.desktop {
+  background: var(--dark-panel);
+  color: var(--dark-text);
+  height: 620px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: var(--space-3xl);
+  width: 990px;
+}
+.desktop-bar {
+  align-items: center;
+  border-bottom: 1px solid var(--dark-panel-2);
+  display: flex;
+  height: 54px;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+}
+.product { font: 700 17px/1 var(--font-display); letter-spacing: .02em; }
+.product span { color: var(--accent); }
+.desktop-bar .project { color: var(--dark-quiet); font-size: 12px; }
+.desktop-shell { display: grid; grid-template-columns: 170px 1fr; height: 566px; }
+.nav {
+  border-right: 1px solid var(--dark-panel-2);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl) var(--space-lg);
+}
+.nav a { color: var(--dark-quiet); font-size: 12px; padding: var(--space-md) var(--space-sm); text-decoration: none; }
+.nav a.active { color: var(--dark-text); font-weight: 700; }
+.system {
+  border-top: 1px solid var(--dark-panel-2);
+  color: var(--dark-quiet);
+  font: 11px/1.45 var(--font-code);
+  margin-top: auto;
+  padding: var(--space-lg) var(--space-sm) 0;
+}
+.workspace { padding: var(--space-xl) var(--space-2xl); }
+.workspace-head { align-items: end; display: flex; justify-content: space-between; }
+.workspace-head h2 { font: 700 34px/.95 var(--font-display); margin: 0; }
+.workspace-head p { color: var(--dark-quiet); font-size: 12px; margin: var(--space-sm) 0 0; }
+.phase { background: var(--yellow); color: var(--ink); font-size: 12px; font-weight: 700; padding: var(--space-sm) var(--space-md); }
+.workspace-grid { display: grid; gap: var(--space-2xl); grid-template-columns: minmax(0, 1.55fr) minmax(250px, .75fr); margin-top: var(--space-2xl); }
+.agenda { border-top: 2px solid var(--dark-text); }
+.agenda-head { color: var(--dark-quiet); display: flex; font-size: 12px; justify-content: space-between; padding: var(--space-md) 0; }
+.session {
+  align-items: center;
+  border-top: 1px solid var(--dark-panel-2);
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: 62px minmax(0, 1fr) 96px;
+  min-height: 72px;
+}
+.time { color: var(--dark-quiet); font: 12px/1 var(--font-code); }
+.session strong { display: block; font-size: 14px; }
+.session span { color: var(--dark-quiet); font-size: 11px; }
+.tag { background: var(--blue-pale); color: var(--blue); font-size: 11px; justify-self: end; padding: var(--space-sm); }
+.tag.orange { background: var(--accent-pale); color: var(--accent); }
+.insight { background: var(--blue); min-height: 330px; padding: var(--space-xl); }
+.insight small { color: var(--blue-pale); font-size: 12px; }
+.insight blockquote { font: 700 27px/1.08 var(--font-display); margin: var(--space-2xl) 0 0; }
+.insight .source { color: var(--blue-pale); font-size: 11px; margin-top: var(--space-2xl); }
+
+.phone {
+  background: var(--white);
+  border: 7px solid var(--ink);
+  border-radius: 28px;
+  height: 570px;
+  left: 880px;
+  overflow: hidden;
+  position: absolute;
+  top: 76px;
+  width: 260px;
+}
+.phone-top { align-items: center; display: flex; height: 54px; justify-content: space-between; padding: 0 var(--space-lg); }
+.phone-top .product { color: var(--ink); font-size: 15px; }
+.avatar { background: var(--accent); border-radius: 50%; height: 25px; width: 25px; }
+.phone-title { padding: var(--space-lg) var(--space-lg) var(--space-xl); }
+.phone-title span { color: var(--quiet); font-size: 12px; }
+.phone-title h2 { font: 700 30px/.95 var(--font-display); margin: var(--space-sm) 0 0; }
+.phone-title p { color: var(--ink-2); font-size: 12px; line-height: 1.4; margin: var(--space-md) 0 0; }
+.phone-day { background: var(--yellow); display: flex; font-size: 12px; font-weight: 700; justify-content: space-between; padding: var(--space-md) var(--space-lg); }
+.phone-sessions { padding: 0 var(--space-lg); }
+.phone-session { border-top: 1px solid var(--rule); display: grid; gap: var(--space-md); grid-template-columns: 45px 1fr; padding: var(--space-lg) 0; }
+.phone-session:first-child { border-top: 0; }
+.phone-session .time { color: var(--quiet); }
+.phone-session b { display: block; font-size: 13px; }
+.phone-session span { color: var(--quiet); font-size: 11px; }
+.phone-action { background: var(--blue); color: var(--white); font-size: 13px; font-weight: 700; margin: var(--space-sm) var(--space-lg) 0; padding: var(--space-md); text-align: center; }
+
+.focus {
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  height: 45px;
+  left: 1050px;
+  position: absolute;
+  top: 365px;
+  width: 45px;
+}
+.leader {
+  border-top: 3px solid var(--accent);
+  left: 1094px;
+  position: absolute;
+  top: 387px;
+  width: 66px;
+}
+.finding {
+  border-top: 3px solid var(--accent);
+  left: 1160px;
+  padding-top: var(--space-lg);
+  position: absolute;
+  top: 285px;
+  width: 232px;
+}
+.finding-meta { color: var(--accent); font-size: 13px; font-weight: 700; }
+.finding h2 { font: 700 27px/1.02 var(--font-display); margin: var(--space-lg) 0 var(--space-md); }
+.finding p { color: var(--ink-2); font-size: 13px; line-height: 1.5; margin: 0; }
+.finding code { color: var(--quiet); display: block; font: 11px/1.4 var(--font-code); margin-top: var(--space-xl); }
+.gate {
+  background: var(--ink);
+  bottom: 56px;
+  color: var(--white);
+  left: 1160px;
+  padding: var(--space-lg);
+  position: absolute;
+  width: 232px;
+}
+.gate span { color: var(--accent-pale); font-size: 12px; font-weight: 700; }
+.gate strong { display: block; font: 700 21px/1.05 var(--font-display); margin-top: var(--space-sm); }
+.gate small { color: var(--dark-quiet); display: block; font: 10px/1.4 var(--font-code); margin-top: var(--space-md); }
+.proof-note { bottom: var(--space-sm); color: var(--quiet); font-size: 12px; left: 0; position: absolute; }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="wordmark">design-artifact-loop</div>
+    <h1>One brief, rendered twice.</h1>
+    <p>The desktop and mobile views belong to the same artifact. Review evidence points back to the viewport and version that produced it.</p>
+  </header>
+
+  <main class="proof">
+    <div class="desktop-caption">artifact.html / desktop 1440×900</div>
+    <div class="mobile-caption">same artifact / mobile 390×844</div>
+
+    <section class="desktop">
+      <div class="desktop-bar"><div class="product">fieldnote<span>/</span></div><div class="project">Atlas onboarding study · 8 participants</div></div>
+      <div class="desktop-shell">
+        <nav class="nav">
+          <a class="active">Research plan</a><a>Participants</a><a>Sessions</a><a>Synthesis</a>
+          <div class="system">SYSTEM<br>civic-modern<br>rev 04</div>
+        </nav>
+        <div class="workspace">
+          <div class="workspace-head">
+            <div><h2>Interview week</h2><p>Three sessions today. Notes sync to synthesis after review.</p></div>
+            <div class="phase">Fieldwork · day 2</div>
+          </div>
+          <div class="workspace-grid">
+            <div class="agenda">
+              <div class="agenda-head"><span>Wednesday, July 15</span><span>Local time</span></div>
+              <div class="session"><div class="time">09:30</div><div><strong>Mara Chen</strong><span>New workspace setup</span></div><div class="tag">Confirmed</div></div>
+              <div class="session"><div class="time">11:00</div><div><strong>Owen Blake</strong><span>Invite and permissions</span></div><div class="tag orange">Prep needed</div></div>
+              <div class="session"><div class="time">14:30</div><div><strong>Samira Iqbal</strong><span>First report export</span></div><div class="tag">Confirmed</div></div>
+            </div>
+            <aside class="insight"><small>Working observation · 04</small><blockquote>People read “workspace” as a place, not a permission boundary.</blockquote><div class="source">2 of 3 sessions · needs another signal</div></aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="phone">
+      <div class="phone-top"><div class="product">fieldnote<span>/</span></div><i class="avatar"></i></div>
+      <div class="phone-title"><span>Atlas onboarding</span><h2>Interview week</h2><p>Today’s fieldwork and prep.</p></div>
+      <div class="phone-day"><span>Wed 15</span><span>3 sessions</span></div>
+      <div class="phone-sessions">
+        <div class="phone-session"><div class="time">09:30</div><div><b>Mara Chen</b><span>Workspace setup</span></div></div>
+        <div class="phone-session"><div class="time">11:00</div><div><b>Owen Blake</b><span>Invite + permissions</span></div></div>
+        <div class="phone-session"><div class="time">14:30</div><div><b>Samira Iqbal</b><span>Report export</span></div></div>
+      </div>
+      <div class="phone-action">Open session guide</div>
+    </section>
+
+    <i class="focus"></i><i class="leader"></i>
+    <aside class="finding">
+      <div class="finding-meta">High finding · mobile agenda</div>
+      <h2>The 11:00 status disappears.</h2>
+      <p>Desktop marks Owen’s session as “Prep needed,” but the mobile view drops that state. The two viewports no longer communicate the same priority.</p>
+      <code>criticReviewToken 9f13d4c8<br>finding carried to round 3</code>
+    </aside>
+    <div class="gate"><span>Ship gate: continue</span><strong>Restore the missing state, then render again.</strong><small>1 high open · exact artifact hash</small></div>
+    <div class="proof-note">Static HTML · design tokens · deterministic checks · independent pixel review</div>
+  </main>
+</body>
+</html>
